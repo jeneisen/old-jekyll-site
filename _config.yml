@@ -2,10 +2,10 @@
 #      Main Configs       #
 # ----------------------- #
 
-url: http://yoursite.com
-title: My Octopress Blog
-subtitle: A blogging framework for hackers.
-author: Your Name
+url: http://jeneisen.github.io
+title: jenerating code
+subtitle: blogging platform for potential hackers.
+author: Jen Eisenberg
 simple_search: http://google.com/search
 description:
 
