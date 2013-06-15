@@ -5,7 +5,7 @@
 url: http://jeneisen.github.io
 title: jenerating code
 subtitle: blogging platform for potential hackers.
-author: Jen Eisenberg
+author: jenerating code
 simple_search: http://google.com/search
 description:
 
@@ -63,13 +63,13 @@ default_asides: [asides/recent_posts.html, asides/github.html, asides/delicious.
 # ----------------------- #
 
 # Github repositories
-github_user:
+github_user: jeneisen
 github_repo_count: 0
 github_show_profile_link: true
 github_skip_forks: true
 
 # Twitter
-twitter_user:
+twitter_user: jeisenberg0
 twitter_tweet_button: true
 
 # Google +1
@@ -82,12 +82,13 @@ googleplus_user:
 googleplus_hidden: false
 
 # Pinboard
-pinboard_user:
+pinboard_user: 
 pinboard_count: 3
 
 # Delicious
 delicious_user:
 delicious_count: 3
+
 
 # Disqus Comments
 disqus_short_name:

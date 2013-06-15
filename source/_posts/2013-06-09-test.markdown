@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "test"
+title: "Getting serious"
 date: 2013-06-09 10:44
 comments: true
 categories: 
