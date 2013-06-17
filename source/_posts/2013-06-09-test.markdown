@@ -1,7 +1,74 @@
 ---
 layout: post
-title: "Getting serious"
-date: 2013-06-09 10:44
+title: "A beginner’s thoughts on “Practical Metaprogramming”"
+date: 2013-06-15 10:44
 comments: true
 categories: 
 ---
+
+================================
+A beginner’s thoughts on Steven Harm's “Practical Metaprogramming”
+---------------------
+An intro to metaprogramming in Ruby
+
+**Pre thoughts**
+The term “meta” often gets used in reflection, but as a newcomer to the dev world, I’ve heard this word even more. I have a vague notion that it refers to code that writes code. Meta pretty much means referring to self. Like discussing a discussion. Joking about a joke. Emoting from an emotion. **The abstraction referring to the concept itself.** As a linguistics concentrator, I’ve been dealing with meta abstraction and analysis in a non technical way. Now that I’m diving into developing, it’s time to get meta with programming. 
+
+I took a look at [Steven Harm’s deck](https://speakerdeck.com/sgharms/practical-metaprogramming-ruby) on speakerdeck.com which is partially aimed at beginner/intermediate level Rubyists like myself.My interpretation of his analysis will focus on the first half of the presentation because honestly, that means more to mean right now than the more complex aspects. I’ll come back in a few weeks to share my deeper progression with MP.
+
+**Application**
+Especially with Ruby, it makes sense that essentially all basic libraries are built off of the concept of metaprogramming. Libraries of ruby code are packaged and installed cross computers to serve up code that builds other code. This written code passes messages to another piece of the structure at the time of running the program. Although the definition of “metaprogramming” is disputed, the practical application is that metaprogramming *really is just programming code that acts on other code, such as classes and modules, at runtime.* 
+
+In order to pass a method to an instance of a class we put defs in the class.
+
+class Dog
+  def self.dognicate
+    puts "doggy"
+  end
+end
+
+Dog.dognicate
+puts Dog.ancestors
+
+Dog.dognicate returns “doggy” as expected. 
+The method ancestors returns 
+Dog
+Object
+Kernel
+BasicObject
+
+We can also put defs in a module instead of a class or defs in the module into the class. (sounding meta already, I know). 
+
+Thus with all these ways of to pass code from various structures, re-routing and interpreting based on various conditions exists. And that’s the concept of metaprogramming. Programming code to be passed to into another element and in turn be interpreted by the original code above and then it returns to the second element and runs.
+
+This is a very basic level using methods & classes and hinting at modules.
+
+**MP and Classes**
+Let’s take a look at another example, step by step.
+Thus far in my programming life, I’ve been using the #attr_accessor module to define setter and getter methods in Ruby using a single line of code. However, according to MP principles, even this is still not ideal if I have more than one attribute per feature. 
+
+class ComputerParts
+  attr_accessor: :hardrive_info, :hardrive_price, :memory_info, :memory_price, :model_info, :model price
+end 
+
+With a little further reading from [rubylearning blog](http://rubylearning.com/blog/2010/11/23/dont-know-metaprogramming-in-ruby/) I can go more in depth regarding this Ruby Object Model that is starting to be defined above. **Everything in Ruby is an object.** When you call a method on a object, the interpreter literally searches for the method to see if it exists. If it does, the method will be called and the appropriate reaction will be executed. However, if not, it looks beyond the scope of the method and looks at the object’s class or parent class or it’s parent class etc. until it reaches the original class.
+
+**method_missing()**
+So now that we’ve talked a bit more about the structure of Ruby objects we can talk about an important method in metaprogramming called method_missing(). One should define this method within a class and if a method cannot be determined or found in the object’s class, it will go back to the called object and call method_missing() method which thus returns NoMethodError error. You can even edit the metaprogram so it takes two parameters as in method_missing(sym,args). 
+
+**Ghosts Methods**
+Another way MP is utilized in by calling a method to affect the interpretation of passed messages, using something called a ghost method. In these methods you can write code that actually takes a method, interprets and responds without actually reciting the name in advance.
+ 
+**Complexity**
+Harms provided an in depth example to see the value of MP in a complex set. He was looking to way to easily conjugate latin verbs as they are passed into methods to determine whether they are first person, second person, third person and singular number or plural number.
+
+Had he not used MP, it would have been vital to define 6 methods per tense (6 tenses), voice (2 voices) and mood (4). That results in a heck of a lot of unique paths..potentially thousands. This is definitely not something anyone would want to program due to inefficiency, poor elimination of ambiguity and pure sanity.
+
+**Merits of metaprogramming (MP)**
+Code that programs other code == insta time saver! No need to type out the body of a method for each piece of code you want that function to run.  Metaprograms build from basic ruby. Not only is your code more scalable, but it becomes DRYer too -- meaning “do not repeat yourself” as your code becomes more defined with purpose. It quickly becomes apparent that debugging is a much simpler when the ambiguity is only in one instance. 
+
+
+**Questions**
+What is the key difference between programming and metaprogramming? In my book, there a difference doesn’t seem to exist. Were  we not just programming normally in the above code. When diving into much more complex method definitions, I can clearly see the win involved with MP. 
+
+Looking forward to returning to this topic in the coming weeks.
