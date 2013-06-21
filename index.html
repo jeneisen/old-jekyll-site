@@ -1,96 +1,81 @@
 
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
 <head>
-	<meta charset="utf-8">
-	<title>jenerating code</title>
-    <meta name="author" content="Jen Eisenberg">
-    
-	<meta name="description" content=" Published on: Jun 9th, 2013 Tags: ">
-	
-	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta charset="utf-8">
+  <title>jenerating code</title>
+  <meta name="author" content="jenerating code">
 
-	<link href="/atom.xml" rel="alternate" title="jenerating code" type="application/atom+xml">
-	<link rel="canonical" href="">
-	<link href="/favicon.ico" rel="shortcut icon">
-    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  
+  <meta name="description" content="An intro to metaprogramming in Ruby Pre thoughts The term “meta” often gets used in reflection, but as a newcomer to the dev world, I’ve heard this &hellip;">
+  
 
-    <link href='http://fonts.googleapis.com/css?family=Slackey' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Amethysta' rel='stylesheet' type='text/css'>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-    <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <script type="text/javascript" src="/javascripts/jquery-tapir.js"></script>
+  
+  <link rel="canonical" href="http://jeneisen.github.io">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="jenerating code" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
-    <!-- remove or comment it to disable ajaxification -->   
-    <script src="/javascripts/ajaxify.js"></script>
-   
-    
-    
+  
 
 </head>
 
-
-<body>
-    <div id="wrapper">
-    <header id="header" class="inner"><!-- for more effects see _animate.scss -->
-<h1 class="animated bounceInDown">
-    <div id="headerbg">
-        Jen Eisenberg
-    </div>
-</h1>
-<br>
-
-<ul id="social-links" style="text-align:center">
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">jenerating code</a></h1>
   
+    <h2>a blogging platform for hackers.</h2>
   
-  
-  
-  
-  
-  
-  
-</ul>
-
-
-<!-- use full url including 'index.html' for navigation bar if you are using ajax -->
-<ul id="nav">
-	<li id="ajax"><a href="/index.html">Home</a></li>
-	<li id="ajax"><a href="/blog/archives/index.html">Archives</a></li>
-    <li><a href="/atom.xml">RSS</a></li>
-    
-    <li>
-    <div id="dark">
-        <form method="get" action="/search.html" id="search">
-            <input name="query" type="text" placeholder="Search..." x-webkit-speech />
-        </form>
-    </div>
-    </li>
-        
-</ul>
-
-
-
+</hgroup>
 
 </header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:jeneisen.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
 
-<div id="toload">
-<!-- begin toload --> 
-    <div id="content" class="inner">
+</nav>
+  <div id="main">
+    <div id="content">
+      <div class="blog-index">
+  
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/15/test/">A Beginner’s Thoughts on “Practical Metaprogramming”</a></h1>
+    
+    
+      <p class="meta">
         
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/06/09/test/">
-		
-			Test</a>
-	</h2>
-    <div class="entry-content">
-    <div class="meta">
-      <div class="date">Published on: 
 
 
 
@@ -102,61 +87,193 @@
   
 
 
-<time datetime="2013-06-09T10:44:00-04:00" pubdate data-updated="true">Jun 9<span>th</span>, 2013</time></div>
-      <div class="tags">Tags: 
-
-</div>
-    </div>
-		
-
-		
-		
-	</div>
-
-<div class="meta">
-	
-</div>
-</article>
-
-<nav id="pagenavi">
+<time datetime="2013-06-15T10:44:00-04:00" pubdate data-updated="true">Jun 15<span>th</span>, 2013</time>
+        
+      </p>
     
+  </header>
+
+
+  <div class="entry-content"><h2>An intro to metaprogramming in Ruby</h2>
+
+<h2><strong>Pre thoughts</strong></h2>
+
+<p>The term “meta” often gets used in reflection, but as a newcomer to the dev world, I’ve heard this word even more. I have a vague notion that it refers to code that writes code. Meta pretty much means referring to self. Like discussing a discussion. Joking about a joke. Emoting from an emotion. <strong>The abstraction referring to the concept itself.</strong> As a linguistics concentrator, I’ve been dealing with meta abstraction and analysis in a non technical way. Now that I’m diving into developing, it’s time to get meta with programming.</p>
+
+<p>I took a look at <a href="https://speakerdeck.com/sgharms/practical-metaprogramming-ruby">Steven Harm’s deck</a> on speakerdeck.com which is partially aimed at beginner/intermediate level Rubyists like myself.My interpretation of his analysis will focus on the first half of the presentation because honestly, that means more to mean right now than the more complex aspects. I’ll come back in a few weeks to share my deeper progression with MP.</p>
+
+<h2><strong>Application</strong></h2>
+
+<p>Especially with Ruby, it makes sense that essentially all basic libraries are built off of the concept of metaprogramming. Libraries of ruby code are packaged and installed cross computers to serve up code that builds other code. This written code passes messages to another piece of the structure at the time of running the program. Although the definition of “metaprogramming” is disputed, the practical application is that metaprogramming <em>really is just programming code that acts on other code, such as classes and modules, at runtime.</em></p>
+
+<p>In order to pass a method to an instance of a class we put defs in the class.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">var</span> <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Ruby syntax highlighting&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">Dog</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">dognicate</span>
+</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;doggy&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="no">Dog</span><span class="o">.</span><span class="n">dognicate</span>
+</span><span class='line'><span class="nb">puts</span> <span class="no">Dog</span><span class="o">.</span><span class="n">ancestors</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Dog.dognicate returns “doggy” as expected.
+The method ancestors returns
+Dog
+Object
+Kernel
+BasicObject</p>
+
+<p>We can also put defs in a module instead of a class or defs in the module into the class. (sounding meta already, I know).</p>
+
+<p>Thus with all these ways of to pass code from various structures, re-routing and interpreting based on various conditions exists. And that’s the concept of metaprogramming. Programming code to be passed to into another element and in turn be interpreted by the original code above and then it returns to the second element and runs.</p>
+
+<p>This is a very basic level using methods &amp; classes and hinting at modules.</p>
+
+<h2><strong>MP and Classes</strong></h2>
+
+<p>Let’s take a look at another example, step by step.
+Thus far in my programming life, I’ve been using the #attr_accessor module to define setter and getter methods in Ruby using a single line of code. However, according to MP principles, even this is still not ideal if I have more than one attribute per feature.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">var</span> <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Ruby syntax highlighting&quot;</span><span class="p">;</span>
+</span><span class='line'><span class="k">class</span> <span class="nc">ComputerParts</span>
+</span><span class='line'>  <span class="kp">attr_accessor</span><span class="p">:</span> <span class="ss">:hardrive_info</span><span class="p">,</span> <span class="ss">:hardrive_price</span><span class="p">,</span> <span class="ss">:memory_info</span><span class="p">,</span> <span class="ss">:memory_price</span><span class="p">,</span> <span class="ss">:model_info</span><span class="p">,</span> <span class="ss">:model</span> <span class="n">price</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>With a little further reading from <a href="http://rubylearning.com/blog/2010/11/23/dont-know-metaprogramming-in-ruby/">rubylearning blog</a> I can go more in depth regarding this Ruby Object Model that is starting to be defined above. <strong>Everything in Ruby is an object.</strong> When you call a method on a object, the interpreter literally searches for the method to see if it exists. If it does, the method will be called and the appropriate reaction will be executed. However, if not, it looks beyond the scope of the method and looks at the object’s class or parent class or it’s parent class etc. until it reaches the original class.</p>
+
+<h2><strong>method_missing()</strong></h2>
+
+<p>So now that we’ve talked a bit more about the structure of Ruby objects we can talk about an important method in metaprogramming called method_missing(). One should define this method within a class and if a method cannot be determined or found in the object’s class, it will go back to the called object and call method_missing() method which thus returns NoMethodError error. You can even edit the metaprogram so it takes two parameters as in method_missing(sym,args).</p>
+
+<h2><strong>Ghosts Methods</strong></h2>
+
+<p>Another way MP is utilized in by calling a method to affect the interpretation of passed messages, using something called a ghost method. In these methods you can write code that actually takes a method, interprets and responds without actually reciting the name in advance.</p>
+
+<h2><strong>Complexity</strong></h2>
+
+<p>Harms provided an in depth example to see the value of MP in a complex set. He was looking to way to easily conjugate latin verbs as they are passed into methods to determine whether they are first person, second person, third person and singular number or plural number.</p>
+
+<p>Had he not used MP, it would have been vital to define 6 methods per tense (6 tenses), voice (2 voices) and mood (4). That results in a heck of a lot of unique paths..potentially thousands. This is definitely not something anyone would want to program due to inefficiency, poor elimination of ambiguity and pure sanity.</p>
+
+<h2><strong>Merits of metaprogramming (MP)</strong></h2>
+
+<p>Code that programs other code == insta time saver! No need to type out the body of a method for each piece of code you want that function to run.  Metaprograms build from basic ruby. Not only is your code more scalable, but it becomes DRYer too &mdash; meaning “do not repeat yourself” as your code becomes more defined with purpose. It quickly becomes apparent that debugging is a much simpler when the ambiguity is only in one instance.</p>
+
+<h2><strong>Questions</strong></h2>
+
+<p>What is the key difference between programming and metaprogramming? In my book, there a difference doesn’t seem to exist. Were  we not just programming normally in the above code. When diving into much more complex method definitions, I can clearly see the win involved with MP.</p>
+
+<p>Looking forward to returning to this topic in the coming weeks.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  <div class="pagination">
     
-    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
-</nav>
+    <a href="/blog/archives">Blog Archives</a>
+    
+  </div>
+</div>
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/06/15/test/">A Beginner’s Thoughts on “Practical Metaprogramming”</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating&#8230;</li>
+  </ul>
+  
+  <a href="https://github.com/jeneisen">@jeneisen</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'jeneisen',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
 
     </div>
-    <footer id="footer">
-    <div style="display:inline">
-    Copyright &copy; 2013
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - jenerating code -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
 
-    Jen Eisenberg
-. Powered by <a href="http://octopress.org">Octopress</a> | 
-    Theme <a href="http://github.com/panks/fabric">fabric</a> by <a href="http://panks.me">Pankaj Kumar</a>
-</div>
-
-
-    </footer>
-    <script src="/javascripts/fabric.js"></script>
-<script src="/javascripts/jquery.fancybox.pack.js"></script>
-<script type="text/javascript">
-(function($){
-	$('.fancybox').fancybox();
-})(jQuery);
-</script> <!-- Delete or comment this line to disable Fancybox -->
+</footer>
+  
 
 
 
 
 
 
-<!-- end toload --> 
-</div>
-</div>
-<script src="/javascripts/jquery.ui.totop.js" type="text/javascript"></script>
-<script type="text/javascript">
-/*<![CDATA[*/
-;(function($){$().UItoTop({easingType:'easeOutCirc'});})(jQuery); 
-/*]]>*/
-</script><!-- remove it to remove the scroll to top button -->
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
 </body>
 </html>
