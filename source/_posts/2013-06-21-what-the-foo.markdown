@@ -46,13 +46,13 @@ OK this is starting to make sense now. Programming languages take advantage of a
 
 ```ruby
 #foo examples
-# Declare the variable foo and set equal to 5
+# Declare var foo and set equal to 5
 foo = 5
 
-# Declare the variable bar and set equal to 12
+# Declare var bar and set equal to 12
 bar = 12
 
-# Declare a method named baz, which prints the text 'Hello world'
+# Declare method named baz, which prints the text 'Hello world'
 def baz
    puts 'Hello world'
 end
