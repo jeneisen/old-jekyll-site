@@ -8,7 +8,7 @@ categories:
 
 **Questions on Questions**
 
-Learning without questioning. That’s a problem. While learning to program over the past two weeks, I’ve come to realize something: I need to learn to love the questions as much as the answers in order to grow.
+Learning without questioning. That’s a problem. While learning to program over the past two weeks, I’ve come to realize something: I need to learn to love questions as much as the answers in order to grow.
 
 Before I so fortunately arrived here [@FlatironSchool](https://twitter.com/FlatironSchool) and discovered that vital piece of info, I dabbled with the world of self-teaching. Some of the resources I attempted to utilize included Codecademy, w3schools, Khan Academy, & even auditing CS classes at UMich. Since the code was never recited aloud to me, the names of variables and methods didn’t cross my mind. One of my goals for this week was to question anything and everything. Quiz yourself until there is no longer a grain left in the argument, I’d say to myself at night. 
 

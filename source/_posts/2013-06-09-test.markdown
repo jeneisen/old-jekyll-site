@@ -46,7 +46,7 @@ We can also put defs in a module instead of a class or defs in the module into t
 
 Thus with all these ways of to pass code from various structures, re-routing, and interpreting based on various conditions exists. And that’s the concept of metaprogramming. Programming code to be passed to into another element and in turn be interpreted by the original code above and then it returns to the second element and runs.
 
-This is a very basic level using methods & classes and hinting at modules.
+This is a very basic level using methods and classes and hinting at modules.
 
 **MP and Classes**
 ---------------------
