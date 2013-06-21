@@ -4,7 +4,7 @@
   <title><![CDATA[jenerating code]]></title>
   <link href="http://jeneisen.github.io/atom.xml" rel="self"/>
   <link href="http://jeneisen.github.io/"/>
-  <updated>2013-06-21T01:20:53-04:00</updated>
+  <updated>2013-06-21T01:38:22-04:00</updated>
   <id>http://jeneisen.github.io/</id>
   <author>
     <name><![CDATA[jenerating code]]></name>
@@ -80,13 +80,13 @@
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1">#foo examples</span>
-</span><span class='line'><span class="c1"># Declare the variable foo and set equal to 5</span>
+</span><span class='line'><span class="c1"># Declare var foo and set equal to 5</span>
 </span><span class='line'><span class="n">foo</span> <span class="o">=</span> <span class="mi">5</span>
 </span><span class='line'>
-</span><span class='line'><span class="c1"># Declare the variable bar and set equal to 12</span>
+</span><span class='line'><span class="c1"># Declare var bar and set equal to 12</span>
 </span><span class='line'><span class="n">bar</span> <span class="o">=</span> <span class="mi">12</span>
 </span><span class='line'>
-</span><span class='line'><span class="c1"># Declare a method named baz, which prints the text &#39;Hello world&#39;</span>
+</span><span class='line'><span class="c1"># Declare method named baz, which prints the text &#39;Hello world&#39;</span>
 </span><span class='line'><span class="k">def</span> <span class="nf">baz</span>
 </span><span class='line'>   <span class="nb">puts</span> <span class="s1">&#39;Hello world&#39;</span>
 </span><span class='line'><span class="k">end</span>
