@@ -65,4 +65,4 @@ bar = foo + baz
 value = var_1 + var_2
 ```
 
-Thanks for all these handy resources for the helpful info regarding possible foo citations: [Wikipedia Foobar](https://en.wikipedia.org/wiki/Foobar), [Wikipedia Metasyntactic variable](http://en.wikipedia.org/wiki/Metasyntactic_variable), [RFC Archives](http://www.faqs.org/rfcs/rfc3092.html).
+Thanks to all these handy resources for the helpful info regarding possible foo citations: [Wikipedia Foobar](https://en.wikipedia.org/wiki/Foobar), [Wikipedia Metasyntactic variable](http://en.wikipedia.org/wiki/Metasyntactic_variable), [RFC Archives](http://www.faqs.org/rfcs/rfc3092.html).
