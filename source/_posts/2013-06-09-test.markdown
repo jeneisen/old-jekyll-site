@@ -51,7 +51,7 @@ This is a very basic level using methods & classes and hinting at modules.
 **MP and Classes**
 ---------------------
 
-Let’s take a look at another example, step by step.
+Let’s take a look at another example.
 Thus far in my programming life, I’ve been using the #attr_accessor module to define setter and getter methods in Ruby using a single line of code. However, according to MP principles, even this is still not ideal if I have more than one attribute per feature. 
 
 ```ruby
@@ -62,6 +62,7 @@ end
 ```
 
 With a little further reading from [rubylearning blog](http://rubylearning.com/blog/2010/11/23/dont-know-metaprogramming-in-ruby/) I can go more in depth regarding this Ruby Object Model that is starting to be defined above. **Everything in Ruby is an object.** When you call a method on a object, the interpreter literally searches for the method to see if it exists. If it does, the method will be called and the appropriate reaction will be executed. However, if not, it looks beyond the scope of the method and looks at the object’s class or parent class or it’s parent class etc. until it reaches the original class.
+
 
 **method_missing()**
 ---------------------
