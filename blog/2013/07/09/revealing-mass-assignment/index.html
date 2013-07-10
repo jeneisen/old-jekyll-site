@@ -106,7 +106,7 @@
 <div class="entry-content"><p>This past weekend I dove head first into Rails. I quite literally created over seven applications just to familiarize myself with the commands and the generated file system with a clear goal of debunking some of the magic of Rails.I frequently came across the same error regarding “mass assignment.” The simple hassle-free fix was to add the attribute to attr_accessible and <em>poof</em> no more error. Although that temporarily fixed my error, this mass assignment concept was still fuzzy. Even the ruby guides surprisingly appeared to be unhelpful to a mere beginner &mdash; as most of the issues surrounding mass assignment have to do with security breaches, a topic I will go into at a later date.</p>
 
 <p><strong>The definition</strong>
-Mass Assignment is the convention Rails assigns the notion of constructing your object with a parameters hash where you are assigning many values to attributes with one single assignment operator. Lacking mass assignment would mean a lot of manual labor drawing assignment statements for each and every attribute.</p>
+Mass Assignment is the convention Rails assigns the act of constructing your object with a parameters hash while you are assigning many values to attributes with one single assignment operator. Lacking mass assignment would mean a lot of manual labor drawing assignment statements for each and every attribute.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -121,16 +121,6 @@ Mass Assignment is the convention Rails assigns the notion of constructing your 
 <span class='line-number'>11</span>
 <span class='line-number'>12</span>
 <span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-<span class='line-number'>16</span>
-<span class='line-number'>17</span>
-<span class='line-number'>18</span>
-<span class='line-number'>19</span>
-<span class='line-number'>20</span>
-<span class='line-number'>21</span>
-<span class='line-number'>22</span>
-<span class='line-number'>23</span>
 </pre></td><td class='code'><pre><code class='ruby'><span class='line'>class Movie < ActiveRecord::Base
 </span><span class='line'>
 </span><span class='line'>end
@@ -143,9 +133,19 @@ Mass Assignment is the convention Rails assigns the notion of constructing your 
 </span><span class='line'>#for any of the above code to work, mass assignment must be allowed for for each attribute assigned in hash.
 </span><span class='line'>movie.name
 </span><span class='line'>movie.star
-</span><span class='line'>movie.year
-</span><span class='line'>
-</span><span class='line'>#Without mass assignment
+</span><span class='line'>movie.year</span></code></pre></td></tr></table></div></figure>
+
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>#Without mass assignment
 </span><span class='line'>attributes = {:name => "The Emperor's Club", :star => "Kevin Kline", :year => 2002}
 </span><span class='line'>movie = Movie.new(attributes)
 </span><span class='line'>movie.name = attributes[:name]
@@ -155,6 +155,9 @@ Mass Assignment is the convention Rails assigns the notion of constructing your 
 </span><span class='line'>movie.star
 </span><span class='line'>movie.year etc.</span></code></pre></td></tr></table></div></figure>
 
+
+<p><strong>Attr_accessible</strong>
+The keyword attr_accessible allows developers to assign specific attributes open to mass assignment.</p>
 
 <p>Under the hood of the attr_accessible we have a method that looks like</p>
 
@@ -172,31 +175,38 @@ Mass Assignment is the convention Rails assigns the notion of constructing your 
 </span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
 
-<p>This code takes in an arbitrary amount of key values and mass assignment thus allows us to set a bunch of attributes at once. For each k/v pair sent in above, the name of the key becomes the name of an attribute setter method and the value associated with the key is the name of the value you want to pass to that method. The ruby send method then permits you to call the method name that is the key’s name as well as call the associated value as a param in the key’s method. This is a solid underlying method because we can easily alter the number of attributes in the class and need not worry about editing the initialize method.</p>
+<p>This code takes in an arbitrary amount of key value pairs. Mass assignment  permits us to set a bunch of attributes at once. For each k/v pair sent in above, the name of the key becomes the name of an attribute setter method and the value associated with the key is the name of the value you want to pass to that method. The ruby send method then permits you to call the method name that is the key’s name as well as call the associated value as a param in the key’s method. This is a solid underlying method because we can easily alter the number of attributes in the class and need not worry about editing the initialize method.</p>
 
-<p><strong>Attr_accessible</strong>
-The keyword attr_accessible allows developers to assign specific attributes open to mass assignment. Thus without attr_accessible, all attribute fields would be open to mass assignment leading to a potentially perilous situation.</p>
+<p>Thus without attr_accessible, all attribute fields would be open to mass assignment leading to a potentially perilous situation.</p>
 
 <p><strong>Security Issue</strong>
-Not going to get into deep detail here, but essentially because rails conventions are so welll &ndash; conventional &ndash; it’s not too tough to merely guess attribute names like :user or worse, :admin. Funny story, actually in order for a developer named Egor Homakov to prove his point that mass assignment is insecure and ganderous, he actually gave himself commit access to the rails repo on github. (read more about his awesome hack or lapse in judgement or what he calls “The commit that changed my life” <a href="http://egorhomakov.com/post/44506887852/commit-that-changed-my-life">here</a>. Anyway there are two main ways to get around this.</p>
+Not going to go super indepth here <em>yet</em>, but essentially because rails conventions are so, well &ndash; conventional &ndash; it’s not too tough to merely guess attribute names like :user or worse, :admin. Funny story, actually in order for a developer named Egor Homakov to prove his point that mass assignment is insecure and dangerous, he actually gave himself access to commmit to the rails repo on github. (read more about his awesome hack or lapse in judgement or what he calls “The commit that changed my life” <a href="http://egorhomakov.com/post/44506887852/commit-that-changed-my-life">here</a>. Anyway there are two main ways to get around this.</p>
 
 <p><strong>Whitelisting</strong>
-This is what’s safe and we assume everything else is dangerous. Thus we can assume this is super secure because we are being explicit in what we give access. You tell your application what is allowed. Similarly, ttr_accessible makes the attributes accessible while the others are protected aka we are being explicit in what we give global access.</p>
+This is what’s safe and we assume everything else is dangerous. Thus we can assume this is super secure because we are being explicit in what we give access. You tell your application what is allowed. Similarly, attr_accessible makes the attributes accessible while the others are protected aka we are being explicit in what we give global access.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>class Student < ActiveRecord::Base
+</span><span class='line'>attr_accessible :name, :tagline, :twitter, :github
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>These attributes are unprotected and can be mass assigned and if we add more we need to add them to this list assuming we want them to be accessible.</p>
 
 <p><strong>Blacklisting</strong>
 Just the opposite. Consider all attributes “good” unless they come from explicit source x. Similarly, the attr_protected method says that the written attributes are protected while everything else IS accessible.</p>
 
-<p>class Student &lt; ActiveRecord::Base
-attr_protected :is_admin
-end</p>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>class Student < ActiveRecord::Base
+</span><span class='line'>attr_protected :is_admin
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
 
-<p>Above we are protecting the is_admin attribute and all other attributed added in the future will not be protected like is_admin.</p>
 
-<p>class Student &lt; ActiveRecord::Base
-attr_accessible :name, :tagline, :twitter, :github
-end</p>
-
-<p>These attributes are unprotected and can be mass assigned and if we add more we need to add them to this list assuming we want them to be accessible.</p>
+<p>Above we are protecting the is_admin attribute and all other attributes added at a later time will not be automatically protected like :is_admin.</p>
 
 <p>There ya have it! mass-assignment.</p>
 </div>
