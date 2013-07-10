@@ -9,7 +9,7 @@
   <meta name="author" content="jenerating code">
 
   
-  <meta name="description" content="An intro to metaprogramming in Ruby Pre thoughts The term “meta” often gets used in reflection, but as a newcomer to the dev world, I’ve heard this &hellip;">
+  <meta name="description" content="This past weekend I dove head first into Rails. I quite literally created over seven applications just to familiarize myself with the commands and &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -31,6 +31,18 @@
 <link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
 
   
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-41940946-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
 
 </head>
 
@@ -38,7 +50,7 @@
   <header role="banner"><hgroup>
   <h1><a href="/">jenerating code</a></h1>
   
-    <h2>a blogging platform for hackers.</h2>
+    <h2>a blogging platform for hackers</h2>
   
 </hgroup>
 
@@ -65,6 +77,253 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/07/09/revealing-mass-assignment/">Revealing Mass Assignment</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-09T23:38:00-04:00" pubdate data-updated="true">Jul 9<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This past weekend I dove head first into Rails. I quite literally created over seven applications just to familiarize myself with the commands and the generated file system with a clear goal of debunking some of the magic of Rails.I frequently came across the same error regarding “mass assignment.” The simple hassle-free fix was to add the attribute to attr_accessible and <em>poof</em> no more error. Although that temporarily fixed my error, this mass assignment concept was still fuzzy. Even the ruby guides surprisingly appeared to be unhelpful to a mere beginner &mdash; as most of the issues surrounding mass assignment have to do with security breaches, a topic I will go into at a later date.</p>
+
+<p><strong>The definition</strong>
+Mass Assignment is the convention Rails assigns the notion of constructing your object with a parameters hash where you are assigning many values to attributes with one single assignment operator. Lacking mass assignment would mean a lot of manual labor drawing assignment statements for each and every attribute.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>class Movie < ActiveRecord::Base
+</span><span class='line'>
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>#What mass assignment lets us do
+</span><span class='line'>attributes = {:name => "The Emperor's Club", :star => "Kevin Kline", :year => 2002}
+</span><span class='line'>movie = Movie.new(attributes)
+</span><span class='line'>Movie.create(:name => "The Emperor's Club", :star => "Kevin Kline", :year => 2002)
+</span><span class='line'>Movie.update(:name => "The Emperor's Club", :star => "Kevin Kline", :year => 2002)
+</span><span class='line'>#for any of the above code to work, mass assignment must be allowed for for each attribute assigned in hash.
+</span><span class='line'>movie.name
+</span><span class='line'>movie.star
+</span><span class='line'>movie.year
+</span><span class='line'>
+</span><span class='line'>#Without mass assignment
+</span><span class='line'>attributes = {:name => "The Emperor's Club", :star => "Kevin Kline", :year => 2002}
+</span><span class='line'>movie = Movie.new(attributes)
+</span><span class='line'>movie.name = attributes[:name]
+</span><span class='line'>movie.star = attributes[:star]
+</span><span class='line'>movie.year = attributes[:year]
+</span><span class='line'>movie.name
+</span><span class='line'>movie.star
+</span><span class='line'>movie.year etc.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Under the hood of the attr_accessible we have a method that looks like</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  def initialize(attributes_hash)
+</span><span class='line'>    attributes_hash.each do |k,v|
+</span><span class='line'>      self.send(("#{k}="), v)
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This code takes in an arbitrary amount of key values and mass assignment thus allows us to set a bunch of attributes at once. For each k/v pair sent in above, the name of the key becomes the name of an attribute setter method and the value associated with the key is the name of the value you want to pass to that method. The ruby send method then permits you to call the method name that is the key’s name as well as call the associated value as a param in the key’s method. This is a solid underlying method because we can easily alter the number of attributes in the class and need not worry about editing the initialize method.</p>
+
+<p><strong>Attr_accessible</strong>
+The keyword attr_accessible allows developers to assign specific attributes open to mass assignment. Thus without attr_accessible, all attribute fields would be open to mass assignment leading to a potentially perilous situation.</p>
+
+<p><strong>Security Issue</strong>
+Not going to get into deep detail here, but essentially because rails conventions are so welll &ndash; conventional &ndash; it’s not too tough to merely guess attribute names like :user or worse, :admin. Funny story, actually in order for a developer named Egor Homakov to prove his point that mass assignment is insecure and ganderous, he actually gave himself commit access to the rails repo on github. (read more about his awesome hack or lapse in judgement or what he calls “The commit that changed my life” <a href="http://egorhomakov.com/post/44506887852/commit-that-changed-my-life">here</a>. Anyway there are two main ways to get around this.</p>
+
+<p><strong>Whitelisting</strong>
+This is what’s safe and we assume everything else is dangerous. Thus we can assume this is super secure because we are being explicit in what we give access. You tell your application what is allowed. Similarly, ttr_accessible makes the attributes accessible while the others are protected aka we are being explicit in what we give global access.</p>
+
+<p><strong>Blacklisting</strong>
+Just the opposite. Consider all attributes “good” unless they come from explicit source x. Similarly, the attr_protected method says that the written attributes are protected while everything else IS accessible.</p>
+
+<p>class Student &lt; ActiveRecord::Base
+attr_protected :is_admin
+end</p>
+
+<p>Above we are protecting the is_admin attribute and all other attributed added in the future will not be protected like is_admin.</p>
+
+<p>class Student &lt; ActiveRecord::Base
+attr_accessible :name, :tagline, :twitter, :github
+end</p>
+
+<p>These attributes are unprotected and can be mass assigned and if we add more we need to add them to this list assuming we want them to be accessible.</p>
+
+<p>There ya have it! mass-assignment.</p>
+</div>
+  
+  
+
+
+    </article>
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/06/21/what-the-foo/">What the Foo?</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-06-21T00:24:00-04:00" pubdate data-updated="true">Jun 21<span>st</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p><strong>Questions on Questions</strong></p>
+
+<p>Learning without questioning. That’s a problem. While learning to program over the past two weeks, I’ve come to realize something: I need to learn to love questions as much as the answers in order to grow.</p>
+
+<p>Before I so fortunately arrived here <a href="https://twitter.com/FlatironSchool">@FlatironSchool</a> and discovered that vital piece of info, I dabbled with the world of self-teaching. Some of the resources I attempted to utilize included Codecademy, w3schools, Khan Academy, &amp; even auditing CS classes at UMich. Since the code was never recited aloud to me, the names of variables and methods didn’t cross my mind. One of my goals for this week was to question anything and everything. Quiz yourself until there is no longer a grain left in the argument, I’d say to myself at night.</p>
+
+<p>To that end, this past week Avi demonstrated examples regarding ruby classes and objects.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>class Dog
+</span><span class='line'>  def initialize()
+</span><span class='line'>  end
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>fido = Dog.new</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Fido. That name again. Why do I learn about this dumb dog named Fido every few months. Who is Fido and why don’t I know him? Is he brown? Is he friends with <strong>Foo</strong>? What about bar? or <em>baz</em>?</p>
+
+<p>Now that the questions were out of the way, it’s time to dig deeper for an answer. Between every programming resource I’ve come across, there appears to be defined terms to name entities such as methods, variables, data, and commands to help demonstrate an abstract system. These aliases for variables in code examples (like foo and baz listed above) are formally known as <strong>metasyntactic variables</strong>.</p>
+
+<p><strong>Background</strong></p>
+
+<p>To reiterate, within the computing sector, there are definite syntactic and semantic conventions in order to help display an abstraction. Metasyntactic variables define the specific words themselves used by programmers universally to assign a non-semantic yet consistent alias to a command or function to indicate that the word must to be replaced by the programmer him or herself, and exist solely to demonstrate a concept. So, these words are mere logical representations or arbitrary objects, like x and y in mathematics.</p>
+
+<p><strong>Foo who?</strong></p>
+
+<p>There seems to be no precise lineage dating the instance of Foo to programming but naturally, many theories have been surmised. Sometime within the 1930s, the word foo was cited in a comic called <em>Smokey Stover</em> by Bill Holman to mean essentially nothing &ndash; or a nonsense word. For example, according to <a href="http://www.faqs.org/rfcs/rfc3092.html">RFC Archives</a> in the cartoon many license plates read “FOO” and nonsense expressions could be discovered in backgrounds echoing “He who foods last foos best” and “Where there’s foo, there’s fire.&ldquo; When asked for this choice, Holman stated that he took advantage of the three letters because he saw it in a fortune figure meaning “good luck” or sometimes “happiness” in Chinese depending on the pronunciation. Apparently, the word foo was actually quite popular in the thirties &mdash; appearing in many other comics and cartoons like <em>The Daffy Duck</em>.</p>
+
+<p>Then, the term took a <strong>major turn</strong>, specifically towards the military in the 1940s, where it merged with the common metasyntactic variable known as FUBAR. FUBAR, as you probably guessed, stands for “F**ked up beyond all repair.” Even during WWII the term “foo fighters” was coined &mdash; referring to people searching for UFOS aka some mysterious/unknown unidentified flying object.</p>
+
+<p>Technically, the term foo was probably first maintained in a coding manner by the Tech Model Railroad Club in the 1960s. The term was adopted by MIT and in their “train room” there are two buttons labelled foo and bar. Legend has it that these miscellaneous buttons were re-evaluated for any and all random ideas the MIT hackers were working on at the time, further supporting the notion that <em>foo</em> and <em>bar</em> refer to mere var names. Foobar even appeared in a systems manual by Digital Equipment Corporation in the late 60s.</p>
+
+<p><strong>Conclusion</strong></p>
+
+<p>OK this is starting to make sense now. Programming languages take advantage of arbitrary words in the basic structure of a function so we can be left with “good luck” to get through the actual difficult process of making the function work within the scope of our task at hand even though we may have f**ked up the function beyond all repair. Noted. As we say here at Flatiron, failure is learning. Celebrate failure.  Celebrate your FUBAR function.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>#foo examples
+</span><span class='line'># Declare var foo and set equal to 5
+</span><span class='line'>foo = 5
+</span><span class='line'>
+</span><span class='line'># Declare var bar and set equal to 12
+</span><span class='line'>bar = 12
+</span><span class='line'>
+</span><span class='line'># Declare method named baz, which prints the text 'Hello world'
+</span><span class='line'>def baz
+</span><span class='line'>   puts 'Hello world'
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>#common metasyntactic variables in ruby
+</span><span class='line'>foo, bar, baz, quux, gorp, fred, barney 
+</span><span class='line'>
+</span><span class='line'>bar = foo + baz
+</span><span class='line'>#wait, is that really better than 
+</span><span class='line'>value = var_1 + var_2</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Thanks to all these handy resources for the helpful info regarding possible foo citations: <a href="https://en.wikipedia.org/wiki/Foobar">Wikipedia Foobar</a>, <a href="http://en.wikipedia.org/wiki/Metasyntactic_variable">Wikipedia Metasyntactic variable</a>, <a href="http://www.faqs.org/rfcs/rfc3092.html">RFC Archives</a>.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -117,16 +376,15 @@
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">var</span> <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Ruby syntax highlighting&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="k">class</span> <span class="nc">Dog</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">dognicate</span>
-</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;doggy&quot;</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>var s = "Ruby syntax highlighting";
+</span><span class='line'>class Dog
+</span><span class='line'>  def self.dognicate
+</span><span class='line'>    puts "doggy"
+</span><span class='line'>  end
+</span><span class='line'>end
 </span><span class='line'>
-</span><span class='line'><span class="no">Dog</span><span class="o">.</span><span class="n">dognicate</span>
-</span><span class='line'><span class="nb">puts</span> <span class="no">Dog</span><span class="o">.</span><span class="n">ancestors</span>
-</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>Dog.dognicate
+</span><span class='line'>puts Dog.ancestors</span></code></pre></td></tr></table></div></figure>
 
 
 <p>Dog.dognicate returns “doggy” as expected.
@@ -138,24 +396,23 @@ BasicObject</p>
 
 <p>We can also put defs in a module instead of a class or defs in the module into the class. (sounding meta already, I know).</p>
 
-<p>Thus with all these ways of to pass code from various structures, re-routing and interpreting based on various conditions exists. And that’s the concept of metaprogramming. Programming code to be passed to into another element and in turn be interpreted by the original code above and then it returns to the second element and runs.</p>
+<p>Thus with all these ways of to pass code from various structures, re-routing, and interpreting based on various conditions exists. And that’s the concept of metaprogramming. Programming code to be passed to into another element and in turn be interpreted by the original code above and then it returns to the second element and runs.</p>
 
-<p>This is a very basic level using methods &amp; classes and hinting at modules.</p>
+<p>This is a very basic level using methods and classes and hinting at modules.</p>
 
 <h2><strong>MP and Classes</strong></h2>
 
-<p>Let’s take a look at another example, step by step.
+<p>Let’s take a look at another example.
 Thus far in my programming life, I’ve been using the #attr_accessor module to define setter and getter methods in Ruby using a single line of code. However, according to MP principles, even this is still not ideal if I have more than one attribute per feature.</p>
 
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">var</span> <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Ruby syntax highlighting&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="k">class</span> <span class="nc">ComputerParts</span>
-</span><span class='line'>  <span class="kp">attr_accessor</span><span class="p">:</span> <span class="ss">:hardrive_info</span><span class="p">,</span> <span class="ss">:hardrive_price</span><span class="p">,</span> <span class="ss">:memory_info</span><span class="p">,</span> <span class="ss">:memory_price</span><span class="p">,</span> <span class="ss">:model_info</span><span class="p">,</span> <span class="ss">:model</span> <span class="n">price</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>var s = "Ruby syntax highlighting";
+</span><span class='line'>class ComputerParts
+</span><span class='line'>  attr_accessor: :hardrive_info, :hardrive_price, :memory_info, :memory_price, :model_info, :model price
+</span><span class='line'>end </span></code></pre></td></tr></table></div></figure>
 
 
 <p>With a little further reading from <a href="http://rubylearning.com/blog/2010/11/23/dont-know-metaprogramming-in-ruby/">rubylearning blog</a> I can go more in depth regarding this Ruby Object Model that is starting to be defined above. <strong>Everything in Ruby is an object.</strong> When you call a method on a object, the interpreter literally searches for the method to see if it exists. If it does, the method will be called and the appropriate reaction will be executed. However, if not, it looks beyond the scope of the method and looks at the object’s class or parent class or it’s parent class etc. until it reaches the original class.</p>
@@ -201,6 +458,14 @@ Thus far in my programming life, I’ve been using the #attr_accessor module to 
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/09/revealing-mass-assignment/">Revealing Mass Assignment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/21/what-the-foo/">What the Foo?</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/06/15/test/">A Beginner’s Thoughts on “Practical Metaprogramming”</a>

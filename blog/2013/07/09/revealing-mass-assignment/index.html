@@ -1,0 +1,339 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Revealing mass assignment - jenerating code</title>
+  <meta name="author" content="jenerating code">
+
+  
+  <meta name="description" content="This past weekend I dove head first into Rails. I quite literally created over seven applications just to familiarize myself with the commands and &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://jeneisen.github.io/blog/2013/07/09/revealing-mass-assignment">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="jenerating code" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-41940946-1']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">jenerating code</a></h1>
+  
+    <h2>a blogging platform for hackers</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:jeneisen.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Revealing Mass Assignment</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-09T23:38:00-04:00" pubdate data-updated="true">Jul 9<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>This past weekend I dove head first into Rails. I quite literally created over seven applications just to familiarize myself with the commands and the generated file system with a clear goal of debunking some of the magic of Rails.I frequently came across the same error regarding “mass assignment.” The simple hassle-free fix was to add the attribute to attr_accessible and <em>poof</em> no more error. Although that temporarily fixed my error, this mass assignment concept was still fuzzy. Even the ruby guides surprisingly appeared to be unhelpful to a mere beginner &mdash; as most of the issues surrounding mass assignment have to do with security breaches, a topic I will go into at a later date.</p>
+
+<p><strong>The definition</strong>
+Mass Assignment is the convention Rails assigns the notion of constructing your object with a parameters hash where you are assigning many values to attributes with one single assignment operator. Lacking mass assignment would mean a lot of manual labor drawing assignment statements for each and every attribute.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>class Movie < ActiveRecord::Base
+</span><span class='line'>
+</span><span class='line'>end
+</span><span class='line'>
+</span><span class='line'>#What mass assignment lets us do
+</span><span class='line'>attributes = {:name => "The Emperor's Club", :star => "Kevin Kline", :year => 2002}
+</span><span class='line'>movie = Movie.new(attributes)
+</span><span class='line'>Movie.create(:name => "The Emperor's Club", :star => "Kevin Kline", :year => 2002)
+</span><span class='line'>Movie.update(:name => "The Emperor's Club", :star => "Kevin Kline", :year => 2002)
+</span><span class='line'>#for any of the above code to work, mass assignment must be allowed for for each attribute assigned in hash.
+</span><span class='line'>movie.name
+</span><span class='line'>movie.star
+</span><span class='line'>movie.year
+</span><span class='line'>
+</span><span class='line'>#Without mass assignment
+</span><span class='line'>attributes = {:name => "The Emperor's Club", :star => "Kevin Kline", :year => 2002}
+</span><span class='line'>movie = Movie.new(attributes)
+</span><span class='line'>movie.name = attributes[:name]
+</span><span class='line'>movie.star = attributes[:star]
+</span><span class='line'>movie.year = attributes[:year]
+</span><span class='line'>movie.name
+</span><span class='line'>movie.star
+</span><span class='line'>movie.year etc.</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Under the hood of the attr_accessible we have a method that looks like</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  def initialize(attributes_hash)
+</span><span class='line'>    attributes_hash.each do |k,v|
+</span><span class='line'>      self.send(("#{k}="), v)
+</span><span class='line'>    end
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>This code takes in an arbitrary amount of key values and mass assignment thus allows us to set a bunch of attributes at once. For each k/v pair sent in above, the name of the key becomes the name of an attribute setter method and the value associated with the key is the name of the value you want to pass to that method. The ruby send method then permits you to call the method name that is the key’s name as well as call the associated value as a param in the key’s method. This is a solid underlying method because we can easily alter the number of attributes in the class and need not worry about editing the initialize method.</p>
+
+<p><strong>Attr_accessible</strong>
+The keyword attr_accessible allows developers to assign specific attributes open to mass assignment. Thus without attr_accessible, all attribute fields would be open to mass assignment leading to a potentially perilous situation.</p>
+
+<p><strong>Security Issue</strong>
+Not going to get into deep detail here, but essentially because rails conventions are so welll &ndash; conventional &ndash; it’s not too tough to merely guess attribute names like :user or worse, :admin. Funny story, actually in order for a developer named Egor Homakov to prove his point that mass assignment is insecure and ganderous, he actually gave himself commit access to the rails repo on github. (read more about his awesome hack or lapse in judgement or what he calls “The commit that changed my life” <a href="http://egorhomakov.com/post/44506887852/commit-that-changed-my-life">here</a>. Anyway there are two main ways to get around this.</p>
+
+<p><strong>Whitelisting</strong>
+This is what’s safe and we assume everything else is dangerous. Thus we can assume this is super secure because we are being explicit in what we give access. You tell your application what is allowed. Similarly, ttr_accessible makes the attributes accessible while the others are protected aka we are being explicit in what we give global access.</p>
+
+<p><strong>Blacklisting</strong>
+Just the opposite. Consider all attributes “good” unless they come from explicit source x. Similarly, the attr_protected method says that the written attributes are protected while everything else IS accessible.</p>
+
+<p>class Student &lt; ActiveRecord::Base
+attr_protected :is_admin
+end</p>
+
+<p>Above we are protecting the is_admin attribute and all other attributed added in the future will not be protected like is_admin.</p>
+
+<p>class Student &lt; ActiveRecord::Base
+attr_accessible :name, :tagline, :twitter, :github
+end</p>
+
+<p>These attributes are unprotected and can be mass assigned and if we add more we need to add them to this list assuming we want them to be accessible.</p>
+
+<p>There ya have it! mass-assignment.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">jenerating code</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-07-09T23:38:00-04:00" pubdate data-updated="true">Jul 9<span>th</span>, 2013</time>
+      
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://jeneisen.github.io/blog/2013/07/09/revealing-mass-assignment/" data-via="jeisenberg0" data-counturl="http://jeneisen.github.io/blog/2013/07/09/revealing-mass-assignment/" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/blog/2013/06/21/what-the-foo/" title="Previous Post: What the foo?">&laquo; What the foo?</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/09/revealing-mass-assignment/">Revealing Mass Assignment</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/21/what-the-foo/">What the Foo?</a>
+      </li>
+    
+      <li class="post">
+        <a href="/blog/2013/06/15/test/">A Beginner’s Thoughts on “Practical Metaprogramming”</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/jeneisen">@jeneisen</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'jeneisen',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - jenerating code -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>
