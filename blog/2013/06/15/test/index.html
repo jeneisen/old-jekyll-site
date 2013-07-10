@@ -126,16 +126,15 @@
 <span class='line-number'>7</span>
 <span class='line-number'>8</span>
 <span class='line-number'>9</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">var</span> <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Ruby syntax highlighting&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="k">class</span> <span class="nc">Dog</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">dognicate</span>
-</span><span class='line'>    <span class="nb">puts</span> <span class="s2">&quot;doggy&quot;</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>var s = "Ruby syntax highlighting";
+</span><span class='line'>class Dog
+</span><span class='line'>  def self.dognicate
+</span><span class='line'>    puts "doggy"
+</span><span class='line'>  end
+</span><span class='line'>end
 </span><span class='line'>
-</span><span class='line'><span class="no">Dog</span><span class="o">.</span><span class="n">dognicate</span>
-</span><span class='line'><span class="nb">puts</span> <span class="no">Dog</span><span class="o">.</span><span class="n">ancestors</span>
-</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>Dog.dognicate
+</span><span class='line'>puts Dog.ancestors</span></code></pre></td></tr></table></div></figure>
 
 
 <p>Dog.dognicate returns “doggy” as expected.
@@ -160,11 +159,10 @@ Thus far in my programming life, I’ve been using the #attr_accessor module to 
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">var</span> <span class="n">s</span> <span class="o">=</span> <span class="s2">&quot;Ruby syntax highlighting&quot;</span><span class="p">;</span>
-</span><span class='line'><span class="k">class</span> <span class="nc">ComputerParts</span>
-</span><span class='line'>  <span class="kp">attr_accessor</span><span class="p">:</span> <span class="ss">:hardrive_info</span><span class="p">,</span> <span class="ss">:hardrive_price</span><span class="p">,</span> <span class="ss">:memory_info</span><span class="p">,</span> <span class="ss">:memory_price</span><span class="p">,</span> <span class="ss">:model_info</span><span class="p">,</span> <span class="ss">:model</span> <span class="n">price</span>
-</span><span class='line'><span class="k">end</span>
-</span></code></pre></td></tr></table></div></figure>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>var s = "Ruby syntax highlighting";
+</span><span class='line'>class ComputerParts
+</span><span class='line'>  attr_accessor: :hardrive_info, :hardrive_price, :memory_info, :memory_price, :model_info, :model price
+</span><span class='line'>end </span></code></pre></td></tr></table></div></figure>
 
 
 <p>With a little further reading from <a href="http://rubylearning.com/blog/2010/11/23/dont-know-metaprogramming-in-ruby/">rubylearning blog</a> I can go more in depth regarding this Ruby Object Model that is starting to be defined above. <strong>Everything in Ruby is an object.</strong> When you call a method on a object, the interpreter literally searches for the method to see if it exists. If it does, the method will be called and the appropriate reaction will be executed. However, if not, it looks beyond the scope of the method and looks at the object’s class or parent class or it’s parent class etc. until it reaches the original class.</p>
@@ -245,6 +243,10 @@ Thus far in my programming life, I’ve been using the #attr_accessor module to 
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/09/revealing-mass-assignment/">Revealing Mass Assignment</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/06/21/what-the-foo/">What the Foo?</a>

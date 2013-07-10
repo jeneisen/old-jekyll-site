@@ -117,13 +117,12 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">Dog</span>
-</span><span class='line'>  <span class="k">def</span> <span class="nf">initialize</span><span class="p">()</span>
-</span><span class='line'>  <span class="k">end</span>
-</span><span class='line'><span class="k">end</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>class Dog
+</span><span class='line'>  def initialize()
+</span><span class='line'>  end
+</span><span class='line'>end
 </span><span class='line'>
-</span><span class='line'><span class="n">fido</span> <span class="o">=</span> <span class="no">Dog</span><span class="o">.</span><span class="n">new</span>
-</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>fido = Dog.new</span></code></pre></td></tr></table></div></figure>
 
 
 <p>Fido. That name again. Why do I learn about this dumb dog named Fido every few months. Who is Fido and why don’t I know him? Is he brown? Is he friends with <strong>Foo</strong>? What about bar? or <em>baz</em>?</p>
@@ -164,25 +163,24 @@
 <span class='line-number'>16</span>
 <span class='line-number'>17</span>
 <span class='line-number'>18</span>
-</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="c1">#foo examples</span>
-</span><span class='line'><span class="c1"># Declare var foo and set equal to 5</span>
-</span><span class='line'><span class="n">foo</span> <span class="o">=</span> <span class="mi">5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>#foo examples
+</span><span class='line'># Declare var foo and set equal to 5
+</span><span class='line'>foo = 5
 </span><span class='line'>
-</span><span class='line'><span class="c1"># Declare var bar and set equal to 12</span>
-</span><span class='line'><span class="n">bar</span> <span class="o">=</span> <span class="mi">12</span>
+</span><span class='line'># Declare var bar and set equal to 12
+</span><span class='line'>bar = 12
 </span><span class='line'>
-</span><span class='line'><span class="c1"># Declare method named baz, which prints the text &#39;Hello world&#39;</span>
-</span><span class='line'><span class="k">def</span> <span class="nf">baz</span>
-</span><span class='line'>   <span class="nb">puts</span> <span class="s1">&#39;Hello world&#39;</span>
-</span><span class='line'><span class="k">end</span>
+</span><span class='line'># Declare method named baz, which prints the text 'Hello world'
+</span><span class='line'>def baz
+</span><span class='line'>   puts 'Hello world'
+</span><span class='line'>end
 </span><span class='line'>
-</span><span class='line'><span class="c1">#common metasyntactic variables in ruby</span>
-</span><span class='line'><span class="n">foo</span><span class="p">,</span> <span class="n">bar</span><span class="p">,</span> <span class="n">baz</span><span class="p">,</span> <span class="n">quux</span><span class="p">,</span> <span class="n">gorp</span><span class="p">,</span> <span class="n">fred</span><span class="p">,</span> <span class="n">barney</span>
+</span><span class='line'>#common metasyntactic variables in ruby
+</span><span class='line'>foo, bar, baz, quux, gorp, fred, barney 
 </span><span class='line'>
-</span><span class='line'><span class="n">bar</span> <span class="o">=</span> <span class="n">foo</span> <span class="o">+</span> <span class="n">baz</span>
-</span><span class='line'><span class="c1">#wait, is that really better than </span>
-</span><span class='line'><span class="n">value</span> <span class="o">=</span> <span class="n">var_1</span> <span class="o">+</span> <span class="n">var_2</span>
-</span></code></pre></td></tr></table></div></figure>
+</span><span class='line'>bar = foo + baz
+</span><span class='line'>#wait, is that really better than 
+</span><span class='line'>value = var_1 + var_2</span></code></pre></td></tr></table></div></figure>
 
 
 <p>Thanks to all these handy resources for the helpful info regarding possible foo citations: <a href="https://en.wikipedia.org/wiki/Foobar">Wikipedia Foobar</a>, <a href="http://en.wikipedia.org/wiki/Metasyntactic_variable">Wikipedia Metasyntactic variable</a>, <a href="http://www.faqs.org/rfcs/rfc3092.html">RFC Archives</a>.</p>
@@ -228,6 +226,8 @@
         <a class="basic-alignment left" href="/blog/2013/06/15/test/" title="Previous Post: A beginner’s thoughts on “Practical Metaprogramming”">&laquo; A beginner’s thoughts on “Practical Metaprogramming”</a>
       
       
+        <a class="basic-alignment right" href="/blog/2013/07/09/revealing-mass-assignment/" title="Next Post: Revealing mass assignment">Revealing mass assignment &raquo;</a>
+      
     </p>
   </footer>
 </article>
@@ -239,6 +239,10 @@
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/07/09/revealing-mass-assignment/">Revealing Mass Assignment</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/06/21/what-the-foo/">What the Foo?</a>
