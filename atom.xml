@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[jenerating code]]></title>
+  <title><![CDATA[code_jen]]></title>
   <link href="http://jeneisen.github.io/atom.xml" rel="self"/>
   <link href="http://jeneisen.github.io/"/>
-  <updated>2013-08-26T19:44:22-04:00</updated>
+  <updated>2013-08-26T19:48:48-04:00</updated>
   <id>http://jeneisen.github.io/</id>
   <author>
-    <name><![CDATA[jenerating code]]></name>
+    <name><![CDATA[code_jen]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
@@ -24,9 +24,9 @@
 
 <p>Over the past three months I’ve been surrounded by the most inspiring and motivated people I’ve ever met. It’ll certainly be a change of pace going back to college. (Yes, despite Avi’s efforts, I’m returning to college).</p>
 
-<p>Even though the official dates for The Flatiron School have terminated and graduation has been completed, that in no way indicates the learning process is over. Avi, Blake, Ashley, Jeff and Jon have awarded me the gift of knowing how to learn. Before Flatiron, I was quite literally stuck in the console (and stuck in Python). Any escape seemed impossible. But thankfully with the help of the incredible instructors, students, and overall environment, not only have I deployed code, I feel ready to teach myself the next steps equppied with new methods, languages, and frameworks.</p>
+<p>Even though the official dates for The Flatiron School have terminated and graduation has been completed, that in no way indicates the learning process is over. Avi, Blake, Ashley, Jeff and Jon have awarded me the gift of knowing how to learn. Before Flatiron, I was quite literally stuck in the console (and stuck in Python). Any escape seemed impossible. But thankfully with the help of the incredible instructors, students, and overall environment, not only have I deployed code, I feel ready to teach myself the next steps equipped with new methods, languages, and frameworks.</p>
 
-<p>Although I’m heading back to college this Saturday, life won’t change too drastically. Sure I’ll be free to code from the comfort of Michigan Stadium (re Michigan Hacks &mdash; yup I’m hacking in the Big House and I’m pretty stoked about it) but besides the freedom of space, I hope my life won’t be too different from the daily schedule at Flatiron School. I have plans to read “Rails Recipes”, plans to learn node.js, plans to finally get around to creating my personal website and yes, to blog way more frequently. This is the just the beginning.</p>
+<p>Although I’m heading back to college today, life won’t change too drastically. Sure I’ll be free to code from the comfort of Michigan Stadium (re Michigan Hacks &mdash; yup I’m hacking in the Big House in 25 days and I’m pretty stoked about it) but besides the freedom of space, I hope my life won’t be too different from the daily schedule at Flatiron School. I have plans to read “Rails Recipes”, plans to learn node.js, plans to finally get around to creating my personal website and yes, to blog way more frequently. This is the just the beginning.</p>
 ]]></content>
   </entry>
   
