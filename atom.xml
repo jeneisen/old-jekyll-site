@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[jenerating code]]></title>
+  <title><![CDATA[code_jen]]></title>
   <link href="http://jeneisen.github.io/atom.xml" rel="self"/>
   <link href="http://jeneisen.github.io/"/>
   <updated>2013-07-09T23:52:56-04:00</updated>
   <id>http://jeneisen.github.io/</id>
   <author>
-    <name><![CDATA[jenerating code]]></name>
+    <name><![CDATA[code_jen]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
